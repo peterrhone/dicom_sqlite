@@ -7,6 +7,8 @@ class DicomSeries:
         self.contour_files = []
         self.registration_files = []
         self.image_id_dict = {}
+        self.RescaleSlope = 1.0
+        self.RescaleIntercept = 0.0
 
     def add_image_file(self, image_file, img_ID):
         self.num_slices += 1
@@ -17,6 +19,12 @@ class DicomSeries:
 
     def add_registration_file(self, registration_file):
         self.registration_files.append(registration_file)
+
+    def set_rescale_slope(self, slope):
+        self.RescaleSlope = slope
+    
+    def set_rescale_intercept(self, intercept):
+        self.RescaleIntercept = intercept
     
     def get_series_id(self):
         return self.series_id
