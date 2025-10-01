@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=AI Contour Viewer
+Comment=AI-powered CT image contouring for radiation therapy
+Exec=../launch_ai_view.sh
+Icon=ai-view-icon
+Terminal=false
+Type=Application
+Categories=Utility;Science;Graphics;
+StartupNotify=true
+Keywords=medical;imaging;radiation;therapy;AI;
+StartupWMClass=ai-view
+X-GNOME-Application-ID=org.peter.ai_view
