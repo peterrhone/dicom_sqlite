@@ -222,7 +222,7 @@ in Pixeln gemessen wird und mit den Ground-Truth-Masken verglichen wird.
 \begin{table}[H]
     \centering
     \scriptsize
-    \begin{tabular}{p{1.8cm}p{2.8cm}p{1.8cm}p{1.8cm}p{3cm}}
+    \begin{tabular}{p{1.5cm}p{2.2cm}p{1.5cm}p{1.5cm}p{2.5cm}}
       \toprule
       \textbf{Organ} & \textbf{Dice-Wert\newline (Mittel ± SD)} & \textbf{Präzision} & \textbf{Recall} & \textbf{Hausdorff-Distanz\newline (px, Mittel ± SD)} \\
       \midrule
@@ -388,29 +388,26 @@ von > 20\%. Ob eine Höhenabweichung oder Flächenabweichung klinisch relevanter
 und ab welcher Schwelle eine Warnung sinnvoll ist, müsste in zukünftigen Studien
 evaluiert werden.
 
-Schlechteste Resultate i.S. von Dice Werten
-traten bei schlecht segmentierten Organen auf, verursacht durch anatomische
-Variationen, z.B. trunkierte Bilder, schlechten Kontrast durch Bildartefakte
-(z.B. Metallimplantate oder Bewegungen) oder unvollständige Organerfassung im
-CT. Dies deutet auf Einschränkungen in der Generalisierbarkeit des Modells hin,
-insbesondere bei extremen Füllungszuständen oder Bildartefakten. Die Analyse der
-Worst-Case-Beispiele zeigt, dass das Modell in solchen Fällen zu Über- oder
-Untersegmentierungen neigt, was durch erweiterte Augmentation oder Transfer
-Learning in zukünftigen Iterationen adressiert werden könnte.
-
-Einschränkungen der Methode umfassen die Abhängigkeit von konsistenten
-kV-CBCT-Parametern sowie den Informationsverlust durch die Dimensionsreduktion auf
-2D. Der Datensatz ist homogen (keine Hochrisikoprofile, Daten von einem Gerät:
-Elekta Synergy-System, kV=120, mAs=650). Anatomische Besonderheiten wie
-postoperative Zustände, übermäßiges Darmgas oder Implantate waren selten; die
-Modell-Performance bei solchen Fällen war eingeschränkt, wie die
-Worst-Case-Analyse zeigt. Externe Validierung ist essenziell, um die
+Die Vorhersagen mit der groessten Abweichung vom Ground-Truth traten bei 
+Organen auf die bei der Aufnahme nicht komplett erfasst wurden, 
+bei schlechtem Kontrast durch Bildartefakte (z.B. Metallimplantate oder Bewegungsartefakte)
+oder unvollständige Organerfassung im CT. Dies deutet auf Einschränkungen in
+der Generalisierbarkeit des Modells hin, insbesondere bei extremen
+Füllungszuständen oder Bildartefakten. Die Analyse der Worst-Case-Beispiele
+zeigt, dass das Modell in solchen Fällen zu Über- oder Untersegmentierungen
+neigt.Einschränkungen der Methode umfassen auch die Abhängigkeit von
+konsistenten kV-CBCT-Parametern sowie den Informationsverlust durch die
+Dimensionsreduktion auf 2D. Der Datensatz ist homogen (keine Hochrisikoprofile,
+Daten von einem Gerät: Elekta Synergy-System, kV=120, mAs=650). Anatomische
+Besonderheiten wie postoperative Zustände, übermäßiges Darmgas oder Implantate
+waren selten; die Modell-Performance bei solchen Fällen war eingeschränkt, wie
+die Worst-Case-Analyse zeigt. Externe Validierung ist essenziell, um die
 Generalisierungsfähigkeit zu prüfen. Zukünftige Arbeiten könnten Transfer
 Learning, erweiterte Augmentation oder ein nnU-Net einsetzen, um die Robustheit
-gegenüber variablen Geräteigenschaften zu verbessern.
+gegenüber variablen Geräteigenschaften zu verbessern. 
 
 \section{Schlussfolgerung}
-Die KI-basierte Methode automatisiert die Überprüfung der Füllung von Harnblase
+Die KI-basierte Methode automatisiert die 2D Segmentierung von Harnblase
 und Rektum effektiv und bietet Potenzial zur Verbesserung der Behandlungsqualität
 und Effizienz in der IGRT. Die hohen Performancemetriken und die stabile
 Konvergenz der Modelle (Abb. \ref{fig:loss_curves}) untermauern die

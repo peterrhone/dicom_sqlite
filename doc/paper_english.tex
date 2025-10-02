@@ -371,32 +371,29 @@ can be run simultaneously on consumer hardware—as shown in Fig.
 
 Theoretically planned is an alert to the radiation therapist if there is a
 significant deviation of the model prediction from the ground-truth mask, e.g.,
-a height difference > 10 pixels or an area deviation > 20\%. Whether a height
-deviation or area deviation is clinically more relevant, and at what threshold
-an alert is useful, would need to be evaluated in future studies.
+a height difference > 10 pixels or a surface area deviation > 20\%. Whether a
+height deviation or area deviation is clinically more relevant, and at what
+threshold an alert is useful, would need to be evaluated in future studies.
 
-The worst results in terms of Dice values occurred with poorly segmented
-organs, caused by anatomical variations, e.g., truncated images, poor contrast
-due to image artifacts (e.g., metal implants or movements), or incomplete organ
-capture in the CT. This indicates limitations in the model's generalizability,
-particularly with extreme filling states or image artifacts. The analysis of
-worst-case examples shows that the model tends to over- or under-segment in
-such cases, which could be addressed by extended augmentation or transfer
-learning in future iterations.
-
-Limitations of the method include dependence on consistent kV-CBCT parameters
-as well as information loss due to dimension reduction to 2D. The dataset is
-homogeneous (no high-risk profiles, data from one device: Elekta Synergy
-system, kV=120, mAs=650). Anatomical peculiarities such as postoperative
-states, excessive bowel gas, or implants were rare; model performance in such
-cases was limited, as the worst-case analysis shows. External validation is
-essential to test generalizability. Future work could employ transfer learning,
-extended augmentation, or nnU-Net to improve robustness against variable device
-properties.
+The predictions with the greatest deviation from the ground truth occurred in
+organs that were not completely captured during the acquisition, with poor
+contrast due to image artifacts (e.g., metal implants or motion artifacts), or
+incomplete organ capture in the CBCT. This indicates limitations in the model’s
+generalizability, particularly with extreme filling states or image artifacts.
+The analysis of worst-case examples shows that the model tends to over- or
+under-segment in such cases. Limitations of the method also include dependence
+on consistent kV-CBCT parameters as well as information loss due to dimension
+reduction to 2D. The dataset is homogeneous (no high-risk profiles, data from
+one device: Elekta Synergy system, kV=120, mAs=650). Anatomical peculiarities
+such as postoperative states, excessive bowel gas, or implants were rare; model
+performance in such cases was limited, as the worst-case analysis shows.
+External validation is essential to test generalizability. Future work could
+employ transfer learning, extended augmentation, or test a nnU-Net to improve
+robustness against variable device properties.
 
 \section{Conclusion}
-The AI-based method effectively automates the verification of bladder and
-rectum filling and offers potential to improve treatment quality and efficiency
+The AI-based method effectively automates the 2D segmentation of bladder and
+rectum and offers potential to improve treatment quality and efficiency
 in IGRT. The high performance metrics and stable convergence of the models
 (Fig. \ref{fig:loss_curves}) support reliable segmentation of the organs at
 risk, facilitating their use in clinical practice.
