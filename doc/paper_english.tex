@@ -57,11 +57,11 @@ Franziska Nägler, MD\textsuperscript{2,3,**} \\[1ex]
 
 \begin{abstract}
 \noindent
-\textbf{Background:} A fast method for the automatic detection of bladder and
+\textbf{Background:} A fast method for the automatic detection of the bladder and
     rectum in daily cone-beam CTs (kV-CBCTs) for image-guided radiation therapy
     (IGRT) is presented. \\ \textbf{Methods:} Medial sagittal slices were
     segmented using artificial intelligence (AI) to aid in the evaluation 
-    of rectum and bladder states in definitive radiotherapy for prostate
+    of the bladder and rectum states in definitive radiotherapy for prostate
     carcinoma. \\ \textbf{Results:} The model was trained and validated with
     data from 131
     patients, each with 5 kV-CBCTs. The results show high segmentation
@@ -113,11 +113,11 @@ improve treatment quality \citep{antonelli2022}.
 Between July 1, 2019, and January 31, 2024, 131 patients with low- to
 intermediate-risk prostate carcinoma were retrospectively selected who received
 definitive, moderately hypofractionated radiation therapy (25 fractions with
-simultaneous integrated boost, 58–68 Gy), based on the schema of
+simultaneous integrated boost, 58–68 Gy), based on the protocol of
 \citep{dimuzio2009}. Inclusion criteria were cT1a–cT2b, PSA $\leq
 20\,\text{ng/ml}$, and Gleason score $\leq 7$; patients with high-risk profiles
-or distant metastases were excluded. Written consent for anonymous data use is
-available.
+or distant metastases were excluded. Written consent for anonymous data use was
+obtained.
 
 For each patient, a planning CT (PL-CT) and 5 kV-CBCTs from the RayStation
 system (versions 10B–12A) were extracted anonymously \citep{zwart2022}.
@@ -270,7 +270,7 @@ reality than the GT mask, despite a Dice value of 0.62.
 
 \begin{figure}[p]
     \centering
-    \includegraphics[height=0.9\textheight,keepaspectratio]{../images/bladder/segmentation_grid_6x3.png}
+    \includegraphics[width=0.7\textheight,keepaspectratio]{../images/bladder/segmentation_grid_6x3.png}
     \caption{Bladder: Panels for validation patients (P067 - Dice 0.97, P047 -
     Dice 0.96, P109 - 0.96, P132 - Dice 0.63, P050 - Dice 0.76, P116 - Dice
     0.84). Left: Original slice; Middle: Ground Truth (green); Right:
@@ -279,7 +279,7 @@ reality than the GT mask, despite a Dice value of 0.62.
 
 \begin{figure}[p]
     \centering
-    \includegraphics[height=0.9\textheight,keepaspectratio]{../images/rectum/segmentation_grid_6x3.png}
+    \includegraphics[width=0.7\textheight,keepaspectratio]{../images/rectum/segmentation_grid_6x3.png}
     \caption{Rectum: Panels for validation patients (P122 - Dice 0.89, P051 -
     Dice 0.88, P112 - Dice 0.87, P037 - Dice 0.31, P052 - Dice 0.42, P129 -
     Dice 0.62). Left: Original slice; Middle: Ground Truth (purple); Right:
@@ -341,11 +341,12 @@ individually is seconds-fast, and VRAM requirements are low. Thus, both models
 can be run simultaneously on consumer hardware—as shown in Fig.
 \ref{fig:predicted_overlays} (code available on GitHub \citep{rhone_repo}).
 
-Theoretically planned is an alert to the radiation therapist if there is a
-significant deviation of the model prediction from the GT mask, e.g., a height
-difference > 10 pixels or a surface area deviation > 20\%. Whether a height
-deviation or area deviation is clinically more relevant, and at what threshold
-an alert is useful, would need to be evaluated in future studies.
+The system could alert the treatment personnel of a significant deviation of
+the model's prediction from the expected size or location of the bladder or
+rectum (as derived from the Planing CT). A height difference of, e.g. > 20\%
+for the bladder or a surface area overlap below 80\% for the rectum could
+trigger an alert. At what precise threshold an alert should be issued, would
+need to be evaluated in future studies.
 
 The predictions with the greatest deviation from the ground truth occurred in
 organs with poor contrast due to image artifacts (e.g., metal implants or
@@ -364,7 +365,7 @@ extended augmentation, or test a nnU-Net to improve robustness against variable
 device properties.
 
 \section{Conclusion}
-The AI-based method effectively automates the 2D segmentation of bladder and
+The AI-based method effectively automates the 2D segmentation of the bladder and
 rectum and offers potential to improve treatment quality and efficiency in
 IGRT. The high performance metrics and stable convergence of the models (Fig.
 \ref{fig:loss_curves}) support reliable segmentation of the organs at risk,

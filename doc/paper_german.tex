@@ -24,9 +24,8 @@
 
 \begin{document}
 
-\title{KI-basierte IGRT mit 2D-bildgeführtem Dose Tracking täglicher
-Conebeam-CTs zur Bewertung der Füllung von Rektum und Harnblase
-bei definitiver Radiotherapie des Prostatakarzinoms}
+\title{KI-basierte IGRT mit 2D-bildgesteuerter Bewertung von Rektum und Harnblase in
+kV-CBCTs bei definitiver Radiotherapie des Prostatakarzinoms}
 
 \author{%
 \begin{minipage}{\textwidth}
@@ -205,7 +204,7 @@ identifizieren.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth,keepaspectratio]{unet.pdf}
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{unet.png}
     \caption{Architektur des U-Net-Modells für die Segmentierung von
     kV-CBCT-Bildern. Der kontrahierende Pfad (links) extrahiert Merkmale,
     während der expansive Pfad (rechts) präzise Segmentierungsmasken erzeugt.
@@ -224,14 +223,15 @@ in Pixeln gemessen wird und mit den Ground-Truth-Masken verglichen wird.
     \scriptsize
     \begin{tabular}{p{1.5cm}p{2.2cm}p{1.5cm}p{1.5cm}p{2.5cm}}
       \toprule
-      \textbf{Organ} & \textbf{Dice-Wert\newline (Mittel ± SD)} & \textbf{Präzision} & \textbf{Recall} & \textbf{Hausdorff-Distanz\newline (px, Mittel ± SD)} \\
-      \midrule
+      \textbf{Organ} & \textbf{Dice-Wert\newline (Mittel ± SD)} &
+      \textbf{Präzision} & \textbf{Recall} & \textbf{Hausdorff-Distanz\newline
+      (px, Mittel ± SD)} \\ \midrule
       Harnblase & 0,9149 ± 0,0852 & 0,8974 & 0,9454 & 9,1419 ± 9,0216 \\
       Rektum & 0,7848 ± 0,1641 & 0,8019 & 0,7958 & 11,5230 ± 10,5643 \\
       \bottomrule
     \end{tabular}
-    \caption{Segmentierungsmetriken auf Validierungsdaten (aggregiert über 5-Fold-Kreuzvalidierung).}
-    \label{tab:results}
+    \caption{Segmentierungsmetriken auf Validierungsdaten (aggregiert über
+    5-Fold-Kreuzvalidierung).} \label{tab:results}
 \end{table}
 
 Die hohen Dice-Werte, Präzision und Recall sowie moderaten Hausdorff-Distanzen
@@ -260,26 +260,15 @@ als die Ground-Truth Maske, trotz Dice Wert von 0,62.
 
 \begin{figure}[p]
     \centering
-    \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=\textwidth,keepaspectratio]{../images/bladder/loss_curves.png}
-        \caption{Trainings- und Validierungsverluste für das Harnblasenmodell.}
-        \label{fig:loss_curves_bladder}
-    \end{subfigure}
-    \vspace{0.5cm}
-    \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=\textwidth,keepaspectratio]{../images/rectum/loss_curves.png}
-        \caption{Trainings- und Validierungsverluste für das Rektummodell.}
-        \label{fig:loss_curves_rectum}
-    \end{subfigure}
-    \caption{Verlauf der Trainings- und Validierungsverluste über Epochen für die Harnblase und das Rektum, die die Konvergenz der Modelle zeigen.}
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{combined_loss_curves.png}
+    \caption{Verlauf der Trainings- und Validierungsverluste für die Harnblase
+    (oben) und das Rektum (unten), die die Konvergenz der Modelle zeigen.}
     \label{fig:loss_curves}
 \end{figure}
 
 \begin{figure}[p]
     \centering
-    \includegraphics[height=0.9\textheight,keepaspectratio]{../images/bladder/segmentation_grid_6x3.png}
+    \includegraphics[width=0.7\textheight,keepaspectratio]{../images/bladder/segmentation_grid_6x3.png}
     \caption{Harnblase: Panels für Validierungspatienten (P067 - Dice 0.97,
     P047 - Dice 0.96, P109 - 0.96, P132 - Dice 0.63, P050 - Dice 0.76, P116 -
     Dice 0.84). Links: Originalschnitt; Mitte: Ground Truth (grün); Rechts:
@@ -288,7 +277,7 @@ als die Ground-Truth Maske, trotz Dice Wert von 0,62.
 
 \begin{figure}[p]
     \centering
-    \includegraphics[height=0.9\textheight,keepaspectratio]{../images/rectum/segmentation_grid_6x3.png}
+    \includegraphics[width=0.7\textheight,keepaspectratio]{../images/rectum/segmentation_grid_6x3.png}
     \caption{Rektum: Panels für Validierungspatienten (P122 - Dice 0.89, P051 -
     Dice 0.88, P112 - Dice 0.87, P037 - Dice 0.31, P052 - Dice 0.42, P129 Dice
     0.62). Links: Originalschnitt; Mitte: Ground Truth (lila); Rechts:
@@ -297,46 +286,16 @@ als die Ground-Truth Maske, trotz Dice Wert von 0,62.
 
 \begin{figure}[p]
     \centering
-    \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=\textwidth,keepaspectratio]{../images/bladder/val_metrics_distribution.png}
-        \caption{Metrikenverteilung für die Harnblase (Dice und Hausdorff).}
-        \label{fig:val_metrics_bladder}
-    \end{subfigure}
-    \vspace{0.5cm}
-    \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=\textwidth,keepaspectratio]{../images/rectum/val_metrics_distribution.png}
-        \caption{Metrikenverteilung für das Rektum (Dice und Hausdorff).}
-        \label{fig:val_metrics_rectum}
-    \end{subfigure}
-    \caption{Verteilung der Validierungsmetriken für Harnblase und Rektum.}
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{combined_val_metrics.png}
+    \caption{Verteilung der Validierungsmetriken für Harnblase (oben) und Rektum (unten).}
     \label{fig:val_metrics}
 \end{figure}
 
 \begin{figure}[p]
     \centering
-    \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=\textwidth,keepaspectratio]{../images/predicted_masks_P031_1.2.752.243.1.1.20240423103417750.8780.50024.png}
-        \caption{Überlagerte Vorhersagen für gemeinsamen Validierungspatienten (Patient 31, CBCT-ID: 1.2.752.243.1.1.20240423103417750.8780.50024).}
-        \label{fig:predicted_overlays_p031}
-    \end{subfigure}
-    \vspace{0.5cm}
-    \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=\textwidth,keepaspectratio]{../images/predicted_masks_P051_1.2.752.243.1.1.20240422134429818.1261.66127.png}
-        \caption{Überlagerte Vorhersagen für gemeinsamen Validierungspatienten (Patient 51, CBCT-ID: 1.2.752.243.1.1.20240422134429818.1261.66127).}
-        \label{fig:predicted_overlays_p051}
-    \end{subfigure}
-    \vspace{0.5cm}
-    \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=\textwidth,keepaspectratio]{../images/predicted_masks_P060_1.2.752.243.1.1.20240423095943088.1745.41123.png}
-        \caption{Überlagerte Vorhersagen für gemeinsamen Validierungspatienten (Patient 60, CBCT-ID: 1.2.752.243.1.1.20240423095943088.1745.41123).}
-        \label{fig:predicted_overlays_p060}
-    \end{subfigure}
-    \caption{Überlagerte Modellvorhersagen für Harnblase (gelb) und Rektum (blau) beispielhaft auf gemeinsamen Validierungspatienten angewandt.}
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{combined_predicted_overlays.png}
+    \caption{Überlagerte Modellvorhersagen für Harnblase (gelb) und Rektum (blau)
+    für Patienten P031 (oben), P051 (Mitte) und P060 (unten).}
     \label{fig:predicted_overlays}
 \end{figure}
 
@@ -381,12 +340,12 @@ VRAM Anforderungen gering. Somit können beide Modelle gleichzeitig auf
 Consumer-Hardware betrieben werden - wie in Abb. \ref{fig:predicted_overlays}
 gezeigt (Code dafür bei github einsehbar \cite{rhone_repo}).
 
-Theoretisch geplant ist eine Warnung an dem MTRA abzugeben bei einer
-signifikanten Abweichung der Modellvorhersage vom Ground-Truth Maske, 
-z.Bsp. bei einer Höhenunterschied von > 10 Pixeln oder ein Flächenabweichung
-von > 20\%. Ob eine Höhenabweichung oder Flächenabweichung klinisch relevanter ist,
-und ab welcher Schwelle eine Warnung sinnvoll ist, müsste in zukünftigen Studien
-evaluiert werden.
+Das System könnte das Behandlungspersonal bei einer signifikanten Abweichung
+der Modellvorhersage von der erwarteten Größe oder Lage der Harnblase oder des
+Rektums warnen (abgeleitet aus dem Planungs-CT). Ein Höhenunterschied von
+z.\,B. > 20\% für die Harnblase oder eine Flächenüberlappung unter 80\% für das
+Rektum könnte eine Warnung auslösen. Bei welcher genauen Schwelle eine Warnung
+ausgegeben werden sollte, müsste in zukünftigen Studien evaluiert werden.
 
 Die Vorhersagen mit der groessten Abweichung vom Ground-Truth traten bei
 Organen mit schlechtem Kontrast durch Bildartefakte (z.B. Metallimplantate oder
@@ -404,7 +363,8 @@ waren selten; die Modell-Performance bei solchen Fällen war eingeschränkt, wie
 die Worst-Case-Analyse zeigt. Externe Validierung ist essenziell, um die
 Generalisierungsfähigkeit zu prüfen. Zukünftige Arbeiten könnten Transfer
 Learning, erweiterte Augmentation oder ein nnU-Net einsetzen, um die Robustheit
-gegenüber variablen Geräteigenschaften zu verbessern. 
+gegenüber variablen Geräteigenschaften zu verbessern.
+ 
 
 \section{Schlussfolgerung}
 Die KI-basierte Methode automatisiert die 2D Segmentierung von Harnblase
